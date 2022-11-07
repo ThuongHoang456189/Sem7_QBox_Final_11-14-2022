@@ -23,5 +23,28 @@
         public const string CannotCreateNewEvent = "EventHub:CannotCreateNewEvent";
         public const string CannotAddNewTrack = "EventHub:CannotAddNewTrack";
         public const string CannotRegisterToEvent = "EventHub:CannotRegisterToEvent";
+
+        // QBox
+        public const string MajorTitleAlreadyExist = "QBox:MajorTitleAlreadyExist";
+        public const string SubjectNotFound = "QBox:SubjectNotFound";
+        public const string MentorAlreadyExist = "QBox:MentorAlreadyExist";
+        public const string MentorSkillAlreadyExist = "QBox:MentorSkillAlreadyExist";
+        public const string MentorSkillNotFound = "QBox:MentorSkillNotFound";
+        public const string MentorShouldOlderThanMinAge = "QBox:MentorShouldOlderThanMinAge";
+        public const string CertificateIssuanceDateShouldBeAfterMinAge = "QBox:CertificateIssuanceDateShouldBeAfterMinAge";
+        public const string CertificateIssuanceDateShouldBeEarlierThanNow = "QBox:CertificateIssuanceDateShouldBeEarlierThanNow";
+        public const string CertificateAlreadyExist = "QBox:CertificateAlreadyExist";
+        public const string CertificateNotFound = "QBox:CertificateNotFound";
+        public const string QuestionAlreadyExist = "QBox:QuestionAlreadyExist";
+        public const string QuestionNotFound = "QBox:QuestionNotFound";
+        public const string EndTimeCantBeEarlierThanStartTimePlusAmountOfTime = "QBox:EndTimeCantBeEarlierThanStartTimePlusAmountOfTime";
+        public const string StartTimeCantBeEarlierThanNowPlusAmountOfTime = "QBox:StartTimeCantBeEarlierThanNowPlusAmountOfTime";
+        public const string BookingRequestAlreadyCreated = "QBox:BookingRequestAlreadyCreated";
+        public const string BookingNotFound = "QBox:BookingNotFound";
+        public const string SlotIntervalsIntersect = "QBox:SlotIntervalsIntersect";
+        public const string SlotNotFound = "Qbox:SlotNotFound";
+        public const string SlotClosed = "QBox:SlotClosed";
+        public const string SlotFullyBooked = "QBox:SlotFullyBooked";
+        public const string NotAuthorizedToUpdateSlot = "QBox:NotAuthorizedToUpdateSlot";
     }
 }

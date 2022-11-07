@@ -1,8 +1,14 @@
 ﻿using EventHub.Countries;
 using EventHub.Events;
 using EventHub.Events.Registrations;
+using EventHub.Knowledges.Categories;
 using EventHub.Organizations;
 using EventHub.Organizations.Memberships;
+using EventHub.Organizations.Mentees;
+using EventHub.Organizations.Mentees.Bookings;
+using EventHub.Organizations.Mentors;
+using EventHub.Organizations.Mentors.Profiles;
+using EventHub.Organizations.Mentors.Slots;
 using Microsoft.EntityFrameworkCore;
 using Payment.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -49,6 +55,16 @@ namespace EventHub.EntityFrameworkCore
         public DbSet<Event> Events { get; set; }
         public DbSet<EventRegistration> EventRegistrations { get; set; }
         public DbSet<Country> Countries { get; set; }
+
+        public DbSet<Major> Majors { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Mentor> Mentors { get; set; }
+        public DbSet<MentorSkill> MentorSkills { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<Slot> Slots { get; set; }
+        public DbSet<Mentee> Mentees { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Question> Questions { get; set; }
 
         #region Entities from the used modules
 
