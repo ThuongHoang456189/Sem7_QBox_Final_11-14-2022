@@ -157,7 +157,7 @@ namespace EventHub.EntityFrameworkCore
 
                 b.ConfigureByConvention();
 
-                b.HasOne<Major>().WithMany().HasForeignKey(x => x.MajorId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                b.HasOne(x => x.Major).WithMany(x => x.Subjects).HasForeignKey(x => x.MajorId).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 b.Property(x => x.Title).IsRequired().HasMaxLength(SubjectConsts.MaxTitleLength);
                 b.Property(x => x.Description).IsRequired().HasMaxLength(SubjectConsts.MaxDescriptionLength);
 
@@ -191,9 +191,9 @@ namespace EventHub.EntityFrameworkCore
                 b.Property(x => x.Title).IsRequired().HasMaxLength(MentorSkillConsts.MaxTitleLength);
                 b.Property(x => x.Description).IsRequired().HasMaxLength(MentorSkillConsts.MaxDescriptionLength);
                 b.Property(x => x.IsQBoxApprovedSkill).HasDefaultValue(false);
-                b.HasMany<Certificate>().WithOne().IsRequired().HasForeignKey(x => x.MentorSkillId);
+                b.HasMany(x => x.Certificates).WithOne(x => x.MentorSkill).IsRequired().HasForeignKey(x => x.MentorSkillId);
 
-                b.HasOne<Subject>().WithMany().HasForeignKey(x => x.SubjectId).OnDelete(DeleteBehavior.NoAction);
+                b.HasOne(x => x.Subject).WithMany(x => x.MentorSkills).HasForeignKey(x => x.SubjectId).OnDelete(DeleteBehavior.NoAction);
             });
 
             builder.Entity<Certificate>(b =>
@@ -242,8 +242,8 @@ namespace EventHub.EntityFrameworkCore
 
                 b.ConfigureByConvention();
 
-                b.HasOne<Slot>().WithMany().HasForeignKey(x => x.SlotId).OnDelete(DeleteBehavior.NoAction);
-                b.HasOne<Mentee>().WithMany().HasForeignKey(x => x.MenteeId).OnDelete(DeleteBehavior.NoAction);
+                b.HasOne(x => x.Slot).WithMany(x => x.Bookings).HasForeignKey(x => x.SlotId).OnDelete(DeleteBehavior.NoAction);
+                b.HasOne(x => x.Mentee).WithMany(x => x.Bookings).HasForeignKey(x => x.MenteeId).OnDelete(DeleteBehavior.NoAction);
                 b.Property(x => x.Status).IsRequired();
                 b.Property(x => x.BookedTime).IsRequired();
 
@@ -256,7 +256,7 @@ namespace EventHub.EntityFrameworkCore
 
                 b.ConfigureByConvention();
 
-                b.HasOne<Booking>().WithMany().HasForeignKey(x => x.BookingId).OnDelete(DeleteBehavior.NoAction);
+                b.HasOne(x => x.Booking).WithMany(x => x.Questions).HasForeignKey(x => x.BookingId).OnDelete(DeleteBehavior.NoAction);
                 b.Property(x => x.Subject).IsRequired().HasMaxLength(BookingConsts.MaxSubjectLength);
                 b.Property(x => x.Content).IsRequired().HasMaxLength(BookingConsts.MaxContentLength);
                 b.Property(x => x.DirectoryRoot).IsRequired().HasMaxLength(BookingConsts.MaxDirectoryRootLength);

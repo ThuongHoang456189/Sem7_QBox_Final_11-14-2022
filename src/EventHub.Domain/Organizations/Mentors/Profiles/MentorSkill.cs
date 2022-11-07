@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventHub.Knowledges.Categories;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace EventHub.Organizations.Mentors.Profiles
         public Guid MentorId { get; private set; }
 
         public Guid SubjectId { get; set; }
+        public Subject Subject { get; set; }
 
         public string Title { get; private set; }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventHub.Countries;
+using EventHub.Knowledges.Categories;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -12,19 +13,29 @@ namespace EventHub.Data
     public class EventHubDataSeedContributor : IDataSeedContributor, ITransientDependency
     {
         private readonly IRepository<Country, Guid> _countryRepository;
+
+        private readonly IRepository<Major, Guid> _majorRepository;
+        private readonly IRepository<Subject, Guid> _subjectRepository;
+
         private readonly IGuidGenerator _guidGenerator;
         
         public EventHubDataSeedContributor(
             IRepository<Country, Guid> countryRepository,
+            IRepository<Major, Guid> majorRepository,
+            IRepository<Subject, Guid> subjectRepository,
             IGuidGenerator guidGenerator)
         {
             _countryRepository = countryRepository;
+            _majorRepository = majorRepository;
+            _subjectRepository = subjectRepository;
             _guidGenerator = guidGenerator;
         }
         
         public async Task SeedAsync(DataSeedContext context)
         {
             await CreateCountriesAsync();
+            await CreateMajorsAsync();
+            await CreateSubjectsAsync();
         }
 
         private async Task CreateCountriesAsync()
@@ -234,6 +245,51 @@ namespace EventHub.Data
             };
 
             await _countryRepository.InsertManyAsync(countries, autoSave: true);
+        }
+
+        private async Task CreateMajorsAsync()
+        {
+            if (await _majorRepository.GetCountAsync() > 0)
+            {
+                return;
+            }
+
+            var majors = new List<Major>
+            {
+                new Major(_guidGenerator.Create(), "Information Technology", "Web design, networking, information security, computer technology, operating systems and organizational policy, etc."),
+                new Major(_guidGenerator.Create(), "Business", "Finance, human resources, marketing and economics, and the focus is often on planning, managing, ethics and budgeting"),
+                new Major(_guidGenerator.Create(), "Nursing", "Anatomy and physiology, chemistry and microbiology"),
+                new Major(_guidGenerator.Create(), "Biomedical sciences", "Biochemistry, physics, mathematics, microbiology and organic chemistry"),
+                new Major(_guidGenerator.Create(), "Biology", "Genetics, biotechnology, biophysics, calculus and ecology"),
+                new Major(_guidGenerator.Create(), "Psychology", "Mental disorders, personality, motivation, cognition, perception and how experiences shape how individuals process situations"),
+                new Major(_guidGenerator.Create(), "History", "American history, world history, military history or the history of specific people or events"),
+                new Major(_guidGenerator.Create(), "Communications", "Types of communication, how to deliver an effective speech and writing for a variety of media"),
+                new Major(_guidGenerator.Create(), "Art", "Printmaking, graphic design, sculpture, illustration, painting and art history and often becom museum curators, technical designers, creative directors and fashion designers"),
+            };
+
+            await _majorRepository.InsertManyAsync(majors, autoSave: true);
+        }
+
+        private async Task CreateSubjectsAsync()
+        {
+            var informationTechnology = await _majorRepository.FirstAsync<Major>(x => x.Title == "Information Technology");
+
+            if (await _subjectRepository.GetCountAsync() > 0)
+            {
+                return;
+            }
+
+            var subjects = new List<Subject>
+            {
+                new Subject(_guidGenerator.Create(), informationTechnology.Id, "C#", "C-Sharp"),
+                new Subject(_guidGenerator.Create(), informationTechnology.Id, "Java", "Java"),
+                new Subject(_guidGenerator.Create(), informationTechnology.Id, "Cloud Computing", "AWS, Azure, Digital Ocean, etc."),
+                new Subject(_guidGenerator.Create(), informationTechnology.Id, "Web", "Web Design"),
+                new Subject(_guidGenerator.Create(), informationTechnology.Id, "Security", "Security aspects of software and IT infrastructure"),
+                new Subject(_guidGenerator.Create(), informationTechnology.Id, "Mobile", "Mobile Apps"),
+            };
+
+            await _subjectRepository.InsertManyAsync(subjects, autoSave: true);
         }
     }
 }

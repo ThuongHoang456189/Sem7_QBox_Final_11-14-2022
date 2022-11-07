@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventHub.Organizations.Mentors.Slots;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,8 +11,10 @@ namespace EventHub.Organizations.Mentees.Bookings
     public class Booking : FullAuditedAggregateRoot<Guid>
     {
         public Guid SlotId { get; private set; }
+        public Slot Slot { get; private set; }
 
         public Guid MenteeId { get; private set; }
+        public Mentee Mentee { get; private set; }
 
         public byte Status { get; set; }
 

@@ -11,6 +11,7 @@ namespace EventHub.Knowledges.Categories
     public class Subject : FullAuditedAggregateRoot<Guid>
     {
         public Guid MajorId { get; private set; }
+        public Major Major { get; private set; }
 
         public string Title { get; private set; }
 

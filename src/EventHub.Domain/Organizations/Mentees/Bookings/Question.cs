@@ -7,6 +7,7 @@ namespace EventHub.Organizations.Mentees.Bookings
     public class Question : FullAuditedAggregateRoot<Guid>
     {
         public Guid BookingId { get; private set; }
+        public Booking Booking { get; private set; }
 
         public string Subject { get; private set; }
 

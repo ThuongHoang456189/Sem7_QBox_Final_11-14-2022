@@ -8,6 +8,7 @@ namespace EventHub.Organizations.Mentors.Profiles
     public class Certificate : FullAuditedAggregateRoot<Guid>
     {
         public Guid MentorSkillId { get; private set; }
+        public MentorSkill MentorSkill { get; private set; }
 
         public string Issuer { get; private set; }
 
