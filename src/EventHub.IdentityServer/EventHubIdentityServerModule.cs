@@ -7,6 +7,8 @@ using EventHub.Utils;
 using EventHub.Web;
 using EventHub.Web.Theme;
 using EventHub.Web.Theme.Bundling;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using IdentityServer4.Configuration;
 using IdentityServer4.Extensions;
 using Localization.Resources.AbpUi;
@@ -156,6 +158,26 @@ namespace EventHub
             {
                 options.KeyPrefix = "EventHub:";
             });
+
+            FirebaseApp.Create(new AppOptions
+            {
+                Credential = GoogleCredential.FromFile(@"qbox-auth-firebase-adminsdk-rpx2q-ff52cb8f4f.json")
+            });
+
+            context.Services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = configuration["Authentication:Facebook:AppId"];
+                    options.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+                    //options.AccessDeniedPath = "/AccessDeniedPathInfo";
+                    options.Scope.Add("email");
+                    options.Scope.Add("public_profile");
+                });
 
             var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
             context.Services

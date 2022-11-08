@@ -16,6 +16,7 @@ using Volo.CmsKit;
 using Volo.CmsKit.Comments;
 using EventHub.Events;
 using Volo.CmsKit.Tags;
+using Volo.Abp.Users;
 
 namespace EventHub
 {

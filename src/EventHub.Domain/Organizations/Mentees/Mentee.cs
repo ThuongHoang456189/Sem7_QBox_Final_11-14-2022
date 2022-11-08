@@ -54,6 +54,7 @@ namespace EventHub.Organizations.Mentees
 
         public Mentee SetName(string name)
         {
+            name = String.IsNullOrWhiteSpace(name) ? Email : Name;
             Name = Check.NotNullOrWhiteSpace(name, nameof(name), MenteeConsts.MaxNameLength);
             return this;
         }

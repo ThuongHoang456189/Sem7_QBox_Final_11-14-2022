@@ -11,6 +11,7 @@ using Volo.Abp.IdentityServer.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
+using Volo.Abp.Users.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
 
 namespace EventHub.EntityFrameworkCore
@@ -39,7 +40,7 @@ namespace EventHub.EntityFrameworkCore
         {
             context.Services.AddAbpDbContext<EventHubDbContext>(options =>
             {
-                options.AddDefaultRepositories();
+                options.AddDefaultRepositories(includeAllEntities: true);
             });
 
             Configure<AbpDbContextOptions>(options =>
