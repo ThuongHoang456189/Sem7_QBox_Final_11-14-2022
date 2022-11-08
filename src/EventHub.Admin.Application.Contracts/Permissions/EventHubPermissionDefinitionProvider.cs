@@ -24,6 +24,21 @@ namespace EventHub.Admin.Permissions
             eventRegistrationPermissions.AddChild(EventHubPermissions.Events.Registrations.RemoveAttendee, L("Permission:RemoveAttendee"));
 
             var userPermissions = eventHubGroup.AddPermission(EventHubPermissions.Users.Default, L("Permission:UserManagement"));
+
+            // QBox
+            var qBoxGroup = context.AddGroup(QBoxPermissions.QBoxGroupName);
+
+            var subjectPermission = qBoxGroup.AddPermission(QBoxPermissions.Subjects.Default, L("Permission:SubjectManagement"));
+
+            var slotPermission = qBoxGroup.AddPermission(QBoxPermissions.Slots.Default, L("Permission:SlotManagement"));
+            slotPermission.AddChild(QBoxPermissions.Slots.Create, L("Permission:Create"));
+            slotPermission.AddChild(QBoxPermissions.Slots.Update, L("Permission:Edit"));
+            slotPermission.AddChild(QBoxPermissions.Slots.Delete, L("Permission:Delete"));
+
+            var bookingPermission = qBoxGroup.AddPermission(QBoxPermissions.Bookings.Default, L("Permission:BookingManagement"));
+            bookingPermission.AddChild(QBoxPermissions.Bookings.Create, L("Permission:Create"));
+            bookingPermission.AddChild(QBoxPermissions.Bookings.Accept, L("Permission:Accept"));
+            bookingPermission.AddChild(QBoxPermissions.Bookings.Deny, L("Permission:Deny"));
         }
 
         private static LocalizableString L(string name)

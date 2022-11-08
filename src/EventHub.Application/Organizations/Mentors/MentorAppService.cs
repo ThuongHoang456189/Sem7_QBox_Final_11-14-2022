@@ -115,7 +115,7 @@ namespace EventHub.Organizations.Mentors
             }
         }
 
-        [Authorize(EventHubPermissions.Slots.Create)]
+        [Authorize(QBoxPermissions.Slots.Create)]
         public async Task AddSlotAsync(AddSlotDto input)
         {
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
@@ -124,7 +124,7 @@ namespace EventHub.Organizations.Mentors
             await _mentorRepository.UpdateAsync(@mentor);
         }
 
-        [Authorize(EventHubPermissions.Slots.Update)]
+        [Authorize(QBoxPermissions.Slots.Update)]
         public async Task UpdateSlotAsync(Guid id, UpdateSlotDto input)
         {
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
@@ -133,7 +133,7 @@ namespace EventHub.Organizations.Mentors
             await _mentorRepository.UpdateAsync(@mentor);
         }
 
-        [Authorize(EventHubPermissions.Slots.Delete)]
+        [Authorize(QBoxPermissions.Slots.Delete)]
         public async Task DeleteSlotAsync(Guid id)
         {
             var @slot = await _slotRepository.GetAsync(id, true);
@@ -168,7 +168,7 @@ namespace EventHub.Organizations.Mentors
             return new PagedResultDto<BookingInListDto>(totalCount, bookings);
         }
 
-        [Authorize(EventHubPermissions.Bookings.Accept)]
+        [Authorize(QBoxPermissions.Bookings.Accept)]
         public async Task AcceptBookingAsync(Guid slotId, Guid bookingId)
         {
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
@@ -179,7 +179,7 @@ namespace EventHub.Organizations.Mentors
             await _slotRepository.UpdateAsync(@slot);
         }
 
-        [Authorize(EventHubPermissions.Bookings.Deny)]
+        [Authorize(QBoxPermissions.Bookings.Deny)]
         public async Task DenyBookingAsync(Guid slotId, Guid bookingId)
         {
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EventHub.TestBase": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51811;http://localhost:51818"
+    }
+  }
+}
