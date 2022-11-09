@@ -42,7 +42,7 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
         {
             var dbContext = await GetDbContextAsync();
 
-            var subjectQueryable = (from @subject in dbContext.Set<Subject>()
+            IQueryable<SubjectFound> subjectQueryable = (from @subject in dbContext.Set<Subject>()
                                     join major in dbContext.Set<Major>() on @subject.MajorId equals major.Id
                                     select new SubjectFound
                                     {
@@ -50,9 +50,9 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                                         MajorTitle = major.Title,
                                         SubjectTitle = @subject.Title
                                     })
-                                    .WhereIf(!string.IsNullOrWhiteSpace(majorTitle) || !string.IsNullOrWhiteSpace(subjectTitle), x => x.MajorTitle.ToLower().Equals(majorTitle.ToLower()) || x.SubjectTitle.ToLower().Equals(subjectTitle.ToLower()));
+                                    .WhereIf(!string.IsNullOrWhiteSpace(majorTitle) || !string.IsNullOrWhiteSpace(subjectTitle), x => x.MajorTitle.ToLower().Contains(majorTitle.ToLower()) || x.SubjectTitle.ToLower().Contains(subjectTitle.ToLower()));
 
-            var mentorSkillQueryable = (from @mentorSkill in dbContext.Set<MentorSkill>()
+            IQueryable<MentorFound> mentorSkillQueryable = (from @mentorSkill in dbContext.Set<MentorSkill>()
                                         join subject in subjectQueryable on @mentorSkill.SubjectId equals subject.SubjectId
                                         group @mentorSkill by @mentorSkill.MentorId
                                         into mentor
@@ -79,7 +79,7 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
         {
             var dbContext = await GetDbContextAsync();
 
-            var subjectQueryable = (from @subject in dbContext.Set<Subject>()
+            IQueryable<SubjectFound> subjectQueryable = (from @subject in dbContext.Set<Subject>()
                                     join major in dbContext.Set<Major>() on @subject.MajorId equals major.Id
                                     select new SubjectFound
                                     {
@@ -87,9 +87,9 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                                         MajorTitle = major.Title,
                                         SubjectTitle = @subject.Title
                                     })
-                                    .WhereIf(!string.IsNullOrWhiteSpace(majorTitle) || !string.IsNullOrWhiteSpace(subjectTitle), x => x.MajorTitle.ToLower().Equals(majorTitle.ToLower()) || x.SubjectTitle.ToLower().Equals(subjectTitle.ToLower()));
+                                    .WhereIf(!string.IsNullOrWhiteSpace(majorTitle) || !string.IsNullOrWhiteSpace(subjectTitle), x => x.MajorTitle.ToLower().Contains(majorTitle.ToLower()) || x.SubjectTitle.ToLower().Contains(subjectTitle.ToLower()));
 
-            var mentorSkillQueryable = (from @mentorSkill in dbContext.Set<MentorSkill>()
+            IQueryable<MentorFound> mentorSkillQueryable = (from @mentorSkill in dbContext.Set<MentorSkill>()
                                         join subject in subjectQueryable on @mentorSkill.SubjectId equals subject.SubjectId
                                         group @mentorSkill by @mentorSkill.MentorId
                                         into mentor

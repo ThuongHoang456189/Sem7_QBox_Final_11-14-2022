@@ -30,16 +30,16 @@ namespace EventHub.Controllers.Organizations.Mentors
 
         [HttpPost]
         [Route("profile/create-profile")]
-        public async Task<MentorDto> CreateAsync(CreateMentorBasicInfoDto input, [FromForm] IFormFile avatar)
+        public async Task<MentorDto> CreateAsync([FromForm]  CreateMentorBundle input)
         {
             byte[] mentorAvatar = {};
-            if (avatar != null && avatar.Length > 0)
+            if (input.Avatar != null && input.Avatar.Length > 0)
             {
                 var memoryStream = new MemoryStream();
-                await avatar.CopyToAsync(memoryStream);
+                await input.Avatar.CopyToAsync(memoryStream);
                 mentorAvatar = memoryStream.ToArray();
             }
-            return await _mentorAppService.CreateAsync(input, mentorAvatar);
+            return await _mentorAppService.CreateAsync(input.BasicInfo, mentorAvatar);
         }
 
         [HttpGet("profile")]

@@ -13,7 +13,8 @@ namespace EventHub
         typeof(EventHubApplicationContractsModule),
         typeof(AbpDddApplicationModule),
         typeof(CmsKitPublicApplicationModule),
-        typeof(PaymentApplicationModule)
+        typeof(PaymentApplicationModule),
+        typeof(AbpBlobStoringAwsModule)
     )]
     public class EventHubApplicationModule : AbpModule
     {
