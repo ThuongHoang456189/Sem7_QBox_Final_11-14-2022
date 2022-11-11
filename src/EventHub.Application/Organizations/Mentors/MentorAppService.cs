@@ -31,7 +31,7 @@ namespace EventHub.Organizations.Mentors
         }
 
         [Authorize]
-        public async Task<MentorDto> CreateAsync(CreateMentorBasicInfoDto input, byte[] MentorAvatar)
+        public async Task<MentorDto> CreateAsync(CreateMentorBasicInfoDto input, string avatarExtension, byte[] MentorAvatar)
         {
             // Check if exists
             var isMentorExisted = await IsMentorExisted();
@@ -58,12 +58,12 @@ namespace EventHub.Organizations.Mentors
             {
                 await _qBoxFileAppService.SaveBlobAsync(new SaveBlobInputDto
                 {
-                    Name = string.Join("/", MentorAvatarRoot, CurrentUser.GetId()),
+                    Name = string.Join("/", MentorAvatarRoot, CurrentUser.GetId()) + avatarExtension,
                     File = mentorAvatar
                 });
             }
 
-            var mentor = new Mentor(CurrentUser.GetId(), info.Email, info.Name, info.DateOfBirth, info.PhoneNumber, string.Join("/", MentorAvatarRoot, CurrentUser.GetId()));
+            var mentor = new Mentor(CurrentUser.GetId(), info.Email, info.Name, info.DateOfBirth, info.PhoneNumber, string.Join("/", MentorAvatarRoot, CurrentUser.GetId()) + avatarExtension);
             await _mentorRepository.InsertAsync(mentor,true);
 
             return ObjectMapper.Map<Mentor, MentorDto>(mentor);
@@ -94,14 +94,23 @@ namespace EventHub.Organizations.Mentors
             return new PagedResultDto<MentorInListDto>(totalCount, mentors);
         }
 
+        private byte[] TransferIntArrayToByteArray(int[] array)
+        {
+            byte[] result = new byte[array is null ? 0 : array.Length];
+            for(int i = 0; i < result.Length; i++)
+            {
+                result[i] = byte.Parse(array[i] + "");
+            }
+            return result;
+        }
+
         [Authorize]
         public async Task<List<SlotInListDto>> GetSlotsAsync(SlotListFilterDto input)
         {
             var items = await _slotRepository.GetListAsync(
                 input.mentorId,
                 input.minStartTime,
-                input.maxStartTime,
-                input.statuses);
+                input.maxStartTime);
 
             var slots = ObjectMapper.Map<List<SlotWithDetails>, List<SlotInListDto>>(items);
             return slots;
@@ -121,7 +130,7 @@ namespace EventHub.Organizations.Mentors
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
             @mentor.AddSlot(GuidGenerator.Create(), input.StartTime, input.EndTime);
 
-            await _mentorRepository.UpdateAsync(@mentor);
+            await _mentorRepository.UpdateAsync(@mentor, true);
         }
 
         [Authorize(QBoxPermissions.Slots.Update)]
@@ -130,7 +139,7 @@ namespace EventHub.Organizations.Mentors
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
             @mentor.UpdateSlot(id, input.StartTime, input.EndTime, input.Status);
 
-            await _mentorRepository.UpdateAsync(@mentor);
+            await _mentorRepository.UpdateAsync(@mentor, true);
         }
 
         [Authorize(QBoxPermissions.Slots.Delete)]
@@ -154,14 +163,12 @@ namespace EventHub.Organizations.Mentors
                 BookingConsts.MaxBookingResultCount,
                 input.mentorId,
                 input.menteeId,
-                input.minStartTime,
-                input.statuses);
+                input.minStartTime);
 
             var totalCount = await _bookingRepository.GetCountAsync(
                 input.mentorId,
                 input.menteeId,
-                input.minStartTime,
-                input.statuses);
+                input.minStartTime);
             
 
             var bookings = ObjectMapper.Map<List<BookingWithDetails>, List<BookingInListDto>>(items);

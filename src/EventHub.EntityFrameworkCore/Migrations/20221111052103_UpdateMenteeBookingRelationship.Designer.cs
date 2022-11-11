@@ -4,6 +4,7 @@ using EventHub.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace EventHub.Migrations
 {
     [DbContext(typeof(EventHubDbContext))]
-    partial class EventHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221111052103_UpdateMenteeBookingRelationship")]
+    partial class UpdateMenteeBookingRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -500,6 +502,9 @@ namespace EventHub.Migrations
                     b.Property<Guid>("MenteeId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("MenteeId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("SlotId")
                         .HasColumnType("uniqueidentifier");
 
@@ -509,6 +514,8 @@ namespace EventHub.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MenteeId");
+
+                    b.HasIndex("MenteeId1");
 
                     b.HasIndex("SlotId", "MenteeId", "Status")
                         .IsUnique();
@@ -3299,11 +3306,15 @@ namespace EventHub.Migrations
 
             modelBuilder.Entity("EventHub.Organizations.Mentees.Bookings.Booking", b =>
                 {
-                    b.HasOne("EventHub.Organizations.Mentees.Mentee", "Mentee")
+                    b.HasOne("EventHub.Organizations.Mentees.Mentee", null)
                         .WithMany("Bookings")
                         .HasForeignKey("MenteeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EventHub.Organizations.Mentees.Mentee", "Mentee")
+                        .WithMany()
+                        .HasForeignKey("MenteeId1");
 
                     b.HasOne("EventHub.Organizations.Mentors.Slots.Slot", "Slot")
                         .WithMany("Bookings")

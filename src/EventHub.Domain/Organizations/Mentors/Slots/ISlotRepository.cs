@@ -12,7 +12,6 @@ namespace EventHub.Organizations.Mentors.Slots
             Guid? mentorId = null,
             DateTime? minStartTime = null,
             DateTime? maxStartTime = null,
-            byte[] statuses = null,
             CancellationToken cancellationToken = default);
     }
 }

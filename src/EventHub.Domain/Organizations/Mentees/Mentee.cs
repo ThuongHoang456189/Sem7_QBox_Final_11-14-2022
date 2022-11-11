@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Volo.Abp;
-using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace EventHub.Organizations.Mentees
 {
-    public class Mentee : Entity<Guid>
+    public class Mentee : FullAuditedAggregateRoot<Guid>
     {
         public string Email { get; private set; }
 
@@ -37,7 +37,7 @@ namespace EventHub.Organizations.Mentees
             : base(id)
         {
             SetEmail(email);
-            SetName(name);
+            Name = name;
             SetDateOfBirth(dateOfBirth);
             //SetPhoneNumber(phoneNumber);
             PhoneNumber = phoneNumber;

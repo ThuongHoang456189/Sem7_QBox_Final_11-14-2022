@@ -26,19 +26,19 @@ namespace EventHub.Admin.Permissions
             var userPermissions = eventHubGroup.AddPermission(EventHubPermissions.Users.Default, L("Permission:UserManagement"));
 
             // QBox
-            var qBoxGroup = context.AddGroup(QBoxPermissions.QBoxGroupName);
+            var qBoxGroup = context.AddGroup("QBox");
 
-            var subjectPermission = qBoxGroup.AddPermission(QBoxPermissions.Subjects.Default, L("Permission:SubjectManagement"));
+            qBoxGroup.AddPermission("Subject Management", L("Permission:SubjectManagement"));
 
-            var slotPermission = qBoxGroup.AddPermission(QBoxPermissions.Slots.Default, L("Permission:SlotManagement"));
-            slotPermission.AddChild(QBoxPermissions.Slots.Create, L("Permission:Create"));
-            slotPermission.AddChild(QBoxPermissions.Slots.Update, L("Permission:Edit"));
-            slotPermission.AddChild(QBoxPermissions.Slots.Delete, L("Permission:Delete"));
+            qBoxGroup.AddPermission("QBox.Slots", L("Permission:SlotManagement"));
+            qBoxGroup.AddPermission("QBox.Slots.Create", L("Permission:SlotCreate"));
+            qBoxGroup.AddPermission("QBox.Slots.Update", L("Permission:SlotEdit"));
+            qBoxGroup.AddPermission("QBox.Slots.Delete", L("Permission:SlotDelete"));
 
-            var bookingPermission = qBoxGroup.AddPermission(QBoxPermissions.Bookings.Default, L("Permission:BookingManagement"));
-            bookingPermission.AddChild(QBoxPermissions.Bookings.Create, L("Permission:Create"));
-            bookingPermission.AddChild(QBoxPermissions.Bookings.Accept, L("Permission:Accept"));
-            bookingPermission.AddChild(QBoxPermissions.Bookings.Deny, L("Permission:Deny"));
+            qBoxGroup.AddPermission("QBox.Bookings", L("Permission:BookingManagement"));
+            qBoxGroup.AddPermission("QBox.Bookings.Create", L("Permission:BookingCreate"));
+            qBoxGroup.AddPermission("QBox.Bookings.Accept", L("Permission:BookingAccept"));
+            qBoxGroup.AddPermission("QBox.Bookings.Deny", L("Permission:BookingDeny"));
         }
 
         private static LocalizableString L(string name)

@@ -39,7 +39,9 @@ namespace EventHub.Controllers.Organizations.Mentors
                 await input.Avatar.CopyToAsync(memoryStream);
                 mentorAvatar = memoryStream.ToArray();
             }
-            return await _mentorAppService.CreateAsync(input.BasicInfo, mentorAvatar);
+
+            string avatarExtension = Path.GetExtension(input.Avatar.FileName);
+            return await _mentorAppService.CreateAsync(input.BasicInfo, avatarExtension, mentorAvatar);
         }
 
         [HttpGet("profile")]
@@ -52,6 +54,7 @@ namespace EventHub.Controllers.Organizations.Mentors
         [Route("profile/avatar/{file}")]
         public async Task<IActionResult> GetAvatarAsync(string file)
         {
+            file = file.Replace(@"%2F", @"/");
             file = string.IsNullOrWhiteSpace(file) ? MentorConsts.DefaultAvatar : file;
 
             var fileDto = await _fileAppService.GetBlobAsync(new GetBlobRequestDto { Name = file });

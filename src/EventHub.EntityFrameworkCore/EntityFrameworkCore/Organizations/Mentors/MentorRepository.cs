@@ -109,5 +109,13 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
 
             return await query.CountAsync(GetCancellationToken(cancellationToken));
         }
+
+        public override async Task<IQueryable<Mentor>> WithDetailsAsync()
+        {
+            return (await GetQueryableAsync())
+                .Include(ms => ms.MentorSkills)
+                .Include(s => s.Slots)
+                .ThenInclude(b => b.Bookings);
+        }
     }
 }

@@ -8,9 +8,9 @@ namespace EventHub.Organizations.Mentees
 {
     public class MenteeAppService : EventHubAppService, IMenteeAppService
     {
-        private readonly IRepository<Mentee, Guid> _menteeRepository;
+        private readonly IMenteeRepository _menteeRepository;
 
-        public MenteeAppService(IRepository<Mentee, Guid> menteeRepository)
+        public MenteeAppService(IMenteeRepository menteeRepository)
         {
             _menteeRepository = menteeRepository;
         }

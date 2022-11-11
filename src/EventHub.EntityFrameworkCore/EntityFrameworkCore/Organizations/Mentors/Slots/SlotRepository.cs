@@ -18,7 +18,7 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
         {
         }
 
-        public async Task<List<SlotWithDetails>> GetListAsync(Guid? mentorId = null, DateTime? minStartTime = null, DateTime? maxStartTime = null, byte[] statuses = null, CancellationToken cancellationToken = default)
+        public async Task<List<SlotWithDetails>> GetListAsync(Guid? mentorId = null, DateTime? minStartTime = null, DateTime? maxStartTime = null, CancellationToken cancellationToken = default)
         {
             var dbContext = await GetDbContextAsync();
 
@@ -34,7 +34,6 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                         .WhereIf(mentorId.HasValue, x => x.MentorId == mentorId)
                         .WhereIf(minStartTime.HasValue, x => x.StartTime >= minStartTime)
                         .WhereIf(maxStartTime.HasValue, x => x.StartTime <= maxStartTime)
-                        .WhereIf(statuses.Length > 0, x => statuses.Any(s => s == ((byte)x.Status)))
                         .OrderBy(x => x.StartTime);
 
             return await query.ToListAsync(GetCancellationToken(cancellationToken));

@@ -26,8 +26,8 @@ namespace EventHub.Controllers.Organizations.Mentees
             await _menteeAppService.AddBooking(slotId);
         }
 
-        [HttpPost]
-        [Route("bookings/{bookingId}/add")]
+        [HttpDelete]
+        [Route("bookings/{bookingId}")]
         public async Task RemoveBooking(Guid bookingId)
         {
             await _menteeAppService.RemoveBooking(bookingId);

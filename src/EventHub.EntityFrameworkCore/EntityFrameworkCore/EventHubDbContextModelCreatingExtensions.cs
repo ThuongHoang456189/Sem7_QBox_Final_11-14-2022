@@ -233,6 +233,8 @@ namespace EventHub.EntityFrameworkCore
                 b.Property(x => x.PhoneNumber).HasMaxLength(MenteeConsts.MaxPhoneNumberLength);
                 b.Property(x => x.Avatar).IsRequired().HasMaxLength(MentorConsts.MaxAvatarLength);
 
+                //b.HasMany(x => x.Bookings).WithOne().IsRequired().HasForeignKey(x => x.MenteeId);
+
                 b.HasIndex(x => new { x.Email }).IsUnique();
             });
 
@@ -243,7 +245,9 @@ namespace EventHub.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.HasOne(x => x.Slot).WithMany(x => x.Bookings).HasForeignKey(x => x.SlotId).OnDelete(DeleteBehavior.NoAction);
-                b.HasOne(x => x.Mentee).WithMany(x => x.Bookings).HasForeignKey(x => x.MenteeId).OnDelete(DeleteBehavior.NoAction);
+
+                b.HasOne(x => x.Mentee).WithMany(x => x.Bookings).HasForeignKey(x => x.MenteeId).OnDelete(DeleteBehavior.ClientCascade);
+
                 b.Property(x => x.Status).IsRequired();
                 b.Property(x => x.BookedTime).IsRequired();
 

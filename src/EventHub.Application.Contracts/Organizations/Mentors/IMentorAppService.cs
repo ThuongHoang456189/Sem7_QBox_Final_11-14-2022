@@ -8,7 +8,7 @@ namespace EventHub.Organizations.Mentors
 {
     public interface IMentorAppService : IApplicationService
     {
-        Task<MentorDto> CreateAsync(CreateMentorBasicInfoDto input, byte[] MentorAvatar);
+        Task<MentorDto> CreateAsync(CreateMentorBasicInfoDto input, string avatarExtension, byte[] MentorAvatar);
 
         Task<PagedResultDto<MentorInListDto>> GetMentorsBySubjectAsync(MentorListFilterDto input);
 

@@ -24,7 +24,6 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
             Guid? mentorId = null, 
             Guid? menteeId = null, 
             DateTime? minStartTime = null, 
-            byte[] statuses = null, 
             CancellationToken cancellationToken = default)
         {
             var dbContext = await GetDbContextAsync();
@@ -50,13 +49,12 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                          })
                         .WhereIf(mentorId.HasValue, x => x.Slot.MentorId == mentorId)
                         .WhereIf(menteeId.HasValue, x => x.MenteeId == menteeId)
-                        .WhereIf(minStartTime.HasValue, x => x.Slot.StartTime >= minStartTime)
-                        .WhereIf(statuses.Length > 0, x => statuses.Any(s => s == x.Status));
+                        .WhereIf(minStartTime.HasValue, x => x.Slot.StartTime >= minStartTime);
 
             return await query.CountAsync(GetCancellationToken(cancellationToken));
         }
 
-        public async Task<List<BookingWithDetails>> GetListAsync(string sorting = null, int skipCount = 0, int maxResultCount = int.MaxValue, Guid? mentorId = null, Guid? menteeId = null, DateTime? minStartTime = null, byte[] statuses = null, CancellationToken cancellationToken = default)
+        public async Task<List<BookingWithDetails>> GetListAsync(string sorting = null, int skipCount = 0, int maxResultCount = int.MaxValue, Guid? mentorId = null, Guid? menteeId = null, DateTime? minStartTime = null, CancellationToken cancellationToken = default)
         {
             var dbContext = await GetDbContextAsync();
 
@@ -82,7 +80,6 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                         .WhereIf(mentorId.HasValue, x => x.Slot.MentorId == mentorId)
                         .WhereIf(menteeId.HasValue, x => x.MenteeId == menteeId)
                         .WhereIf(minStartTime.HasValue, x => x.Slot.StartTime >= minStartTime)
-                        .WhereIf(statuses.Length > 0, x => statuses.Any(s => s == x.Status))
                         .OrderBy(x => x.BookedTime)
                         .PageBy(skipCount, maxResultCount);
 

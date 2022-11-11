@@ -13,7 +13,6 @@ namespace EventHub.Organizations.Mentees.Bookings
             Guid? mentorId = null,
             Guid? menteeId = null,
             DateTime? minStartTime = null,
-            byte[] statuses = null,
             CancellationToken cancellationToken = default);
 
         Task<List<BookingWithDetails>> GetListAsync(
@@ -23,7 +22,6 @@ namespace EventHub.Organizations.Mentees.Bookings
             Guid? mentorId = null,
             Guid? menteeId = null,
             DateTime? minStartTime = null,
-            byte[] statuses = null,
             CancellationToken cancellationToken = default);
     }
 }

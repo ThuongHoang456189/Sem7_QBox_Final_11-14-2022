@@ -2,6 +2,7 @@
 using EventHub.Organizations.Mentors.Slots;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities;
@@ -44,6 +45,9 @@ namespace EventHub.Organizations.Mentors
             SetDateOfBirth(dateOfBirth);
             SetPhoneNumber(phoneNumber);
             SetAvatar(avatar);
+            MentorSkills = new Collection<MentorSkill>();
+            Slots = new Collection<Slot>();
+
         }
 
         public Mentor SetEmail(string email)

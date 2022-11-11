@@ -21,7 +21,7 @@ namespace EventHub.Users
 
         public async Task HandleEventAsync(EntityCreatedEventData<IdentityUser> eventData)
         {
-            var mentee = new Mentee(eventData.Entity.Id, eventData.Entity.Email, eventData.Entity.Name, null, eventData.Entity.PhoneNumber, MenteeConsts.DefaultAvatar);
+            var mentee = new Mentee(eventData.Entity.Id, eventData.Entity.Email, string.IsNullOrWhiteSpace(eventData.Entity.Name) ? eventData.Entity.Email : eventData.Entity.Name, null, eventData.Entity.PhoneNumber, MenteeConsts.DefaultAvatar);
             await _menteeRepository.InsertAsync(mentee);
         }
     }
