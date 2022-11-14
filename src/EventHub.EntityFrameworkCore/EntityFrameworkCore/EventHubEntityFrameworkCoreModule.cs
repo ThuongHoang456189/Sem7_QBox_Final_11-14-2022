@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
-using Payment.EntityFrameworkCore;
+//using Payment.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -26,8 +26,8 @@ namespace EventHub.EntityFrameworkCore
         typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(BlobStoringDatabaseEntityFrameworkCoreModule),
-        typeof(CmsKitEntityFrameworkCoreModule),
-        typeof(PaymentEntityFrameworkCoreModule)
+        typeof(CmsKitEntityFrameworkCoreModule)
+        //,typeof(PaymentEntityFrameworkCoreModule)
         )]
     public class EventHubEntityFrameworkCoreModule : AbpModule
     {

@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\payment\src\Payment.Domain.Shared\Payment.Domain.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Volo.Abp.BlobStoring.Database.Domain.Shared" Version="5.0.1" />
     <PackageReference Include="Volo.Abp.Identity.Domain.Shared" Version="5.0.1" />
     <PackageReference Include="Volo.Abp.IdentityServer.Domain.Shared" Version="5.0.1" />

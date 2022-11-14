@@ -11,7 +11,6 @@ namespace EventHub.Organizations.Mentees.Bookings
     {
         Task<int> GetCountAsync(
             Guid? mentorId = null,
-            Guid? menteeId = null,
             DateTime? minStartTime = null,
             CancellationToken cancellationToken = default);
 
@@ -20,7 +19,6 @@ namespace EventHub.Organizations.Mentees.Bookings
             int skipCount = 0,
             int maxResultCount = int.MaxValue,
             Guid? mentorId = null,
-            Guid? menteeId = null,
             DateTime? minStartTime = null,
             CancellationToken cancellationToken = default);
     }

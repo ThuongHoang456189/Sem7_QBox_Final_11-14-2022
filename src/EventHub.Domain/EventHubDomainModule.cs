@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Payment;
+//using Payment;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BlobStoring.Database;
@@ -31,8 +31,8 @@ namespace EventHub
         typeof(AbpSettingManagementDomainModule),
         typeof(AbpEmailingModule),
         typeof(BlobStoringDatabaseDomainModule),
-        typeof(CmsKitDomainModule),
-        typeof(PaymentDomainModule)
+        typeof(CmsKitDomainModule)
+        //,typeof(PaymentDomainModule)
     )]
     public class EventHubDomainModule : AbpModule
     {

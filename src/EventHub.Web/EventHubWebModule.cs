@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
-using Payment.Web;
+//using Payment.Web;
 using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.Account;
@@ -54,8 +54,8 @@ namespace EventHub.Web
         typeof(AbpAspNetCoreSerilogModule),
         typeof(AbpSwashbuckleModule),
         typeof(AbpAccountApplicationContractsModule),
-        typeof(CmsKitPublicWebModule),
-        typeof(PaymentWebModule)
+        typeof(CmsKitPublicWebModule)
+        //,typeof(PaymentWebModule)
         )]
     public class EventHubWebModule : AbpModule
     {

@@ -21,8 +21,7 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
         }
 
         public async Task<int> GetCountAsync(
-            Guid? mentorId = null, 
-            Guid? menteeId = null, 
+            Guid? mentorId = null,  
             DateTime? minStartTime = null, 
             CancellationToken cancellationToken = default)
         {
@@ -48,13 +47,13 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                              BookedTime = @booking.BookedTime
                          })
                         .WhereIf(mentorId.HasValue, x => x.Slot.MentorId == mentorId)
-                        .WhereIf(menteeId.HasValue, x => x.MenteeId == menteeId)
+                        //.WhereIf(menteeId.HasValue, x => x.MenteeId == menteeId)
                         .WhereIf(minStartTime.HasValue, x => x.Slot.StartTime >= minStartTime);
 
             return await query.CountAsync(GetCancellationToken(cancellationToken));
         }
 
-        public async Task<List<BookingWithDetails>> GetListAsync(string sorting = null, int skipCount = 0, int maxResultCount = int.MaxValue, Guid? mentorId = null, Guid? menteeId = null, DateTime? minStartTime = null, CancellationToken cancellationToken = default)
+        public async Task<List<BookingWithDetails>> GetListAsync(string sorting = null, int skipCount = 0, int maxResultCount = int.MaxValue, Guid? mentorId = null, DateTime? minStartTime = null, CancellationToken cancellationToken = default)
         {
             var dbContext = await GetDbContextAsync();
 
@@ -78,7 +77,7 @@ namespace EventHub.EntityFrameworkCore.Organizations.Mentors
                              BookedTime = @booking.BookedTime
                          })
                         .WhereIf(mentorId.HasValue, x => x.Slot.MentorId == mentorId)
-                        .WhereIf(menteeId.HasValue, x => x.MenteeId == menteeId)
+                        //.WhereIf(menteeId.HasValue, x => x.MenteeId == menteeId)
                         .WhereIf(minStartTime.HasValue, x => x.Slot.StartTime >= minStartTime)
                         .OrderBy(x => x.BookedTime)
                         .PageBy(skipCount, maxResultCount);

@@ -10,7 +10,7 @@ using EventHub.Organizations.Mentors;
 using EventHub.Organizations.Mentors.Profiles;
 using EventHub.Organizations.Mentors.Slots;
 using Microsoft.EntityFrameworkCore;
-using Payment.EntityFrameworkCore;
+//using Payment.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -94,7 +94,7 @@ namespace EventHub.EntityFrameworkCore
             builder.ConfigureIdentity();
             builder.ConfigureIdentityServer();
             builder.ConfigureBlobStoring();
-            builder.ConfigurePayment();
+            //builder.ConfigurePayment();
             builder.ConfigureCmsKit();
             builder.ConfigureEventHub();
         }

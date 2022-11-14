@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EventHub.Admin.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
@@ -15,7 +16,7 @@ namespace EventHub.Organizations.Mentees
             _menteeRepository = menteeRepository;
         }
 
-        [Authorize]
+        [Authorize(QBoxPermissions.Bookings.Create)]
         public async Task AddBooking(Guid slotId)
         {
             var @mentee = await _menteeRepository.GetAsync(CurrentUser.GetId(), true);
@@ -24,7 +25,7 @@ namespace EventHub.Organizations.Mentees
             await _menteeRepository.UpdateAsync(@mentee);
         }
 
-        [Authorize]
+        [Authorize(QBoxPermissions.Bookings.Create)]
         public async Task RemoveBooking(Guid bookingId)
         {
             var @mentee = await _menteeRepository.GetAsync(CurrentUser.GetId(), true);

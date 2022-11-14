@@ -1,6 +1,6 @@
 ﻿using EventHub.Localization;
 using Localization.Resources.AbpUi;
-using Payment;
+//using Payment;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -11,8 +11,8 @@ namespace EventHub
     [DependsOn(
         typeof(EventHubApplicationContractsModule),
         typeof(AbpAspNetCoreMvcModule),
-        typeof(CmsKitPublicHttpApiModule),
-        typeof(PaymentHttpApiModule)
+        typeof(CmsKitPublicHttpApiModule)
+        //,typeof(PaymentHttpApiModule)
         )]
     public class EventHubHttpApiModule : AbpModule
     {

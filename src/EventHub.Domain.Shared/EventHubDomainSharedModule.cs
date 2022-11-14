@@ -1,7 +1,7 @@
 using EventHub.Localization;
 using EventHub.Options;
 using Microsoft.Extensions.DependencyInjection;
-using Payment;
+//using Payment;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BlobStoring.Database;
@@ -26,8 +26,8 @@ namespace EventHub
         typeof(AbpPermissionManagementDomainSharedModule),
         typeof(AbpSettingManagementDomainSharedModule),
         typeof(BlobStoringDatabaseDomainSharedModule),
-        typeof(CmsKitDomainSharedModule),
-        typeof(PaymentDomainSharedModule)
+        typeof(CmsKitDomainSharedModule)
+        //,typeof(PaymentDomainSharedModule)
     )]
     public class EventHubDomainSharedModule : AbpModule
     {

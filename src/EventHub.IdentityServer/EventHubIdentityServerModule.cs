@@ -165,11 +165,11 @@ namespace EventHub
             });
 
             context.Services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.ClientId = configuration["Authentication:Google:ClientId"];
-                    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
-                })
+                //.AddGoogle(options =>
+                //{
+                //    options.ClientId = configuration["Authentication:Google:ClientId"];
+                //    options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                //})
                 .AddFacebook(options =>
                 {
                     options.AppId = configuration["Authentication:Facebook:AppId"];

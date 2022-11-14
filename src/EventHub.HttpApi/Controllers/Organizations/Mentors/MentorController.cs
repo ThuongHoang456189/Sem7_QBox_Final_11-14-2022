@@ -70,6 +70,13 @@ namespace EventHub.Controllers.Organizations.Mentors
         }
 
         [HttpPost]
+        [Route("mentorskills/create")]
+        public async Task AddMentorSkillAsync(AddMentorSkillDto input)
+        {
+            await _mentorAppService.AddMentorSkillAsync(input);
+        }
+
+        [HttpPost]
         [Route("slots/create")]
         public async Task AddSlotAsync(AddSlotDto input)
         {

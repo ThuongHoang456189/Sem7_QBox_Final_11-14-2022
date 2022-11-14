@@ -13,17 +13,6 @@ namespace EventHub.Migrations
                 name: "FK_Booking_Mentee_MenteeId",
                 table: "Booking");
 
-            migrationBuilder.AddColumn<Guid>(
-                name: "MenteeId1",
-                table: "Booking",
-                type: "uniqueidentifier",
-                nullable: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Booking_MenteeId1",
-                table: "Booking",
-                column: "MenteeId1");
-
             migrationBuilder.AddForeignKey(
                 name: "FK_Booking_Mentee_MenteeId",
                 table: "Booking",
@@ -31,13 +20,6 @@ namespace EventHub.Migrations
                 principalTable: "Mentee",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Booking_Mentee_MenteeId1",
-                table: "Booking",
-                column: "MenteeId1",
-                principalTable: "Mentee",
-                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

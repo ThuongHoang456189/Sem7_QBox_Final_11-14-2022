@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Payment.Admin;
+//using Payment.Admin;
 using Volo.Abp.Account;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -15,7 +15,7 @@ namespace EventHub.Admin
         typeof(AbpIdentityHttpApiClientModule),
         typeof(AbpPermissionManagementHttpApiClientModule),
         typeof(CmsKitAdminHttpApiClientModule),
-        typeof(PaymentAdminHttpApiClientModule),
+        //typeof(PaymentAdminHttpApiClientModule),
         typeof(AbpSettingManagementHttpApiClientModule)
         )]
     public class EventHubAdminHttpApiClientModule : AbpModule

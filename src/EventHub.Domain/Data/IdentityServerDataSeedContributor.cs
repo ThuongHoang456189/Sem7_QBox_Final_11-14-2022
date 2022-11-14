@@ -183,7 +183,7 @@ namespace EventHub.Data
                 );
             }
 
-            // Swagger Client
+            // Swagger Client(s)
             var swaggerClientId = configurationSection["EventHub_Swagger:ClientId"];
             if (!swaggerClientId.IsNullOrWhiteSpace())
             {
@@ -197,6 +197,23 @@ namespace EventHub.Data
                     requireClientSecret: false,
                     redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                     corsOrigins: new[] { swaggerRootUrl.RemovePostFix("/") }
+                );
+            }
+
+            // Deploy instance on cloud
+            var swaggerClientOnCloudId = configurationSection["EventHub_Swagger_OnCloud:ClientId"];
+            if (!swaggerClientOnCloudId.IsNullOrWhiteSpace())
+            {
+                var swaggerOnCloudRootUrl = configurationSection["EventHub_Swagger_OnCloud:RootUrl"].TrimEnd('/');
+
+                await CreateClientAsync(
+                    name: swaggerClientId,
+                    scopes: commonScopes.Union(new[] { "EventHub", "EventHubAdmin" }),
+                    grantTypes: new[] { "authorization_code" },
+                    secret: configurationSection["EventHub_Swagger_OnCloud:ClientSecret"]?.Sha256(),
+                    requireClientSecret: false,
+                    redirectUri: $"{swaggerOnCloudRootUrl}/swagger/oauth2-redirect.html",
+                    corsOrigins: new[] { swaggerOnCloudRootUrl.RemovePostFix("/") }
                 );
             }
         }

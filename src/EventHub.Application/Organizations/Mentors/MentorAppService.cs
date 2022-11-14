@@ -10,20 +10,24 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Authorization;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.Users;
 
 namespace EventHub.Organizations.Mentors
 {
     public class MentorAppService : EventHubAppService, IMentorAppService
     {
+        private readonly IPermissionManager _permissionManager;
         private readonly IMentorRepository _mentorRepository;
         private readonly ISlotRepository _slotRepository;
         private readonly IBookingRepository _bookingRepository;
         private readonly IQBoxFileAppService _qBoxFileAppService;
+        
         private const string MentorAvatarRoot = "mentor-avatars";
 
-        public MentorAppService(IMentorRepository mentorRepository, ISlotRepository slotRepository, IBookingRepository bookingRepository, IQBoxFileAppService qBoxFileAppService)
+        public MentorAppService(IPermissionManager permissionManager, IMentorRepository mentorRepository, ISlotRepository slotRepository, IBookingRepository bookingRepository, IQBoxFileAppService qBoxFileAppService)
         {
+            _permissionManager = permissionManager;
             _mentorRepository = mentorRepository;
             _slotRepository = slotRepository;
             _bookingRepository = bookingRepository;
@@ -65,6 +69,14 @@ namespace EventHub.Organizations.Mentors
 
             var mentor = new Mentor(CurrentUser.GetId(), info.Email, info.Name, info.DateOfBirth, info.PhoneNumber, string.Join("/", MentorAvatarRoot, CurrentUser.GetId()) + avatarExtension);
             await _mentorRepository.InsertAsync(mentor,true);
+
+            // Update Permission
+            //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Bookings.Create", false);
+            //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Slots.Update", true);
+            //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Slots.Delete", true);
+            //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Slots.Create", true);
+            //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Bookings.Accept", true);
+            //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Bookings.Deny", true);
 
             return ObjectMapper.Map<Mentor, MentorDto>(mentor);
         }
@@ -125,6 +137,17 @@ namespace EventHub.Organizations.Mentors
         }
 
         [Authorize(QBoxPermissions.Slots.Create)]
+        public async Task AddMentorSkillAsync(AddMentorSkillDto input)
+        {
+            var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
+            
+            @mentor.AddMentorSkill(GuidGenerator.Create(), input.SubjectId, input.Title, input.Description);
+
+
+            await _mentorRepository.UpdateAsync(@mentor, true);
+        }
+
+        [Authorize(QBoxPermissions.Slots.Create)]
         public async Task AddSlotAsync(AddSlotDto input)
         {
             var @mentor = await _mentorRepository.GetAsync(CurrentUser.GetId(), true);
@@ -162,12 +185,10 @@ namespace EventHub.Organizations.Mentors
                 input.SkipCount,
                 BookingConsts.MaxBookingResultCount,
                 input.mentorId,
-                input.menteeId,
                 input.minStartTime);
 
             var totalCount = await _bookingRepository.GetCountAsync(
                 input.mentorId,
-                input.menteeId,
                 input.minStartTime);
             
 

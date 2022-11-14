@@ -1,4 +1,4 @@
-﻿using Payment.Admin;
+﻿//using Payment.Admin;
 using Volo.Abp.Account;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -14,7 +14,7 @@ namespace EventHub.Admin
         typeof(AbpIdentityHttpApiModule),
         typeof(AbpPermissionManagementHttpApiModule),
         typeof(CmsKitAdminHttpApiModule),
-        typeof(PaymentAdminHttpApiModule),
+        //typeof(PaymentAdminHttpApiModule),
         typeof(AbpSettingManagementHttpApiModule)
     )]
     public class EventHubAdminHttpApiModule : AbpModule

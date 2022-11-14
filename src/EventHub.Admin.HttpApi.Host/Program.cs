@@ -44,7 +44,8 @@ namespace EventHub.Admin
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                    .UseStartup<Startup>();
                 })
                 .UseAutofac()
                 .UseSerilog();

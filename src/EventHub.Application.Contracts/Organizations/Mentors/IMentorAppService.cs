@@ -16,6 +16,8 @@ namespace EventHub.Organizations.Mentors
 
         Task AddSlotAsync(AddSlotDto input);
 
+        Task AddMentorSkillAsync(AddMentorSkillDto input);
+
         Task UpdateSlotAsync(Guid id, UpdateSlotDto input);
 
         Task DeleteSlotAsync(Guid id);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventHub.Organizations.Memberships;
-using EventHub.Organizations.PaymentRequests;
+//using EventHub.Organizations.PaymentRequests;
 using EventHub.Organizations.Plans;
 using EventHub.Users;
 using Microsoft.AspNetCore.Authorization;

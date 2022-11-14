@@ -1,4 +1,4 @@
-﻿using Payment;
+﻿//using Payment;
 using Volo.Abp.Application;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BlobStoring;
@@ -13,7 +13,7 @@ namespace EventHub
         typeof(EventHubApplicationContractsModule),
         typeof(AbpDddApplicationModule),
         typeof(CmsKitPublicApplicationModule),
-        typeof(PaymentApplicationModule),
+        //typeof(PaymentApplicationModule),
         typeof(AbpBlobStoringAwsModule)
     )]
     public class EventHubApplicationModule : AbpModule
