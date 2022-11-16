@@ -14,7 +14,8 @@ namespace EventHub.Web.Theme
 {
     [DependsOn(
         typeof(AbpAspNetCoreMvcUiThemeSharedModule),
-        typeof(AbpAspNetCoreMvcUiMultiTenancyModule)
+        typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
+        typeof(AbpAspNetCoreMvcUiBundlingModule)
         )]
     public class EventHubWebThemeModule : AbpModule
     {

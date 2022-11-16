@@ -47,7 +47,8 @@ namespace EventHub
         typeof(AbpAccountHttpApiModule), 
         typeof(EventHubWebThemeModule),
         typeof(EventHubEntityFrameworkCoreModule),
-        typeof(AbpAspNetCoreSerilogModule)
+        typeof(AbpAspNetCoreSerilogModule),
+        typeof(AbpAspNetCoreMvcUiBundlingModule)
         )]
     public class EventHubIdentityServerModule : AbpModule
     {
@@ -179,10 +180,10 @@ namespace EventHub
                     options.Scope.Add("public_profile");
                 });
 
-            var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-            context.Services
-                .AddDataProtection()
-                .PersistKeysToStackExchangeRedis(redis, "EventHub-Protection-Keys");
+            //var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
+            //context.Services
+            //    .AddDataProtection()
+            //    .PersistKeysToStackExchangeRedis(redis, "EventHub-Protection-Keys");
 
             context.Services.AddCors(options =>
             {

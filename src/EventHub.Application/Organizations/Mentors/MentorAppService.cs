@@ -10,6 +10,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Authorization;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Guids;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Users;
 
@@ -24,6 +25,9 @@ namespace EventHub.Organizations.Mentors
         private readonly IQBoxFileAppService _qBoxFileAppService;
         
         private const string MentorAvatarRoot = "mentor-avatars";
+
+        protected IPermissionGrantRepository _permissionGrantRepository { get; }
+        protected IGuidGenerator _guidGenerator { get; }
 
         public MentorAppService(IPermissionManager permissionManager, IMentorRepository mentorRepository, ISlotRepository slotRepository, IBookingRepository bookingRepository, IQBoxFileAppService qBoxFileAppService)
         {
@@ -71,6 +75,39 @@ namespace EventHub.Organizations.Mentors
             await _mentorRepository.InsertAsync(mentor,true);
 
             // Update Permission
+            //var permissionGrant = await _permissionGrantRepository.FindAsync("QBox.Bookings.Create", "U", CurrentUser.GetId().ToString().ToLower());
+            //if (permissionGrant != null)
+            //{
+            //    await _permissionGrantRepository.DeleteAsync(permissionGrant);
+            //}
+            
+            //await _permissionGrantRepository.InsertAsync(
+            //    new PermissionGrant(
+            //        _guidGenerator.Create(), "QBox.Slots.Update",
+            //        "U", CurrentUser.GetId().ToString()));
+            //await _permissionGrantRepository.InsertAsync(
+            //    new PermissionGrant(
+            //        _guidGenerator.Create(), "QBox.Slots.Delete",
+            //        "U", CurrentUser.GetId().ToString()));
+            //await _permissionGrantRepository.InsertAsync(
+            //    new PermissionGrant(
+            //        _guidGenerator.Create(), "QBox.Slots.Create",
+            //        "U", CurrentUser.GetId().ToString()));
+            //await _permissionGrantRepository.InsertAsync(
+            //    new PermissionGrant(
+            //        _guidGenerator.Create(), "QBox.Bookings.Accept",
+            //        "U", CurrentUser.GetId().ToString()));
+            //await _permissionGrantRepository.InsertAsync(
+            //    new PermissionGrant(
+            //        _guidGenerator.Create(), "QBox.Bookings.Deny",
+            //        "U", CurrentUser.GetId().ToString()));
+
+            //await _permissionManager.SetAsync("QBox.Bookings.Create", "U", CurrentUser.GetId().ToString(), false);
+            //await _permissionManager.SetAsync("QBox.Slots.Update", "U", CurrentUser.GetId().ToString(), true);
+            //await _permissionManager.SetAsync("QBox.Slots.Delete", "U", CurrentUser.GetId().ToString(), true);
+            //await _permissionManager.SetAsync("QBox.Slots.Create", "U", CurrentUser.GetId().ToString(), true);
+            //await _permissionManager.SetAsync("QBox.Bookings.Accept", "U", CurrentUser.GetId().ToString(), true);
+            //await _permissionManager.SetAsync("QBox.Bookings.Deny", "U", CurrentUser.GetId().ToString(), true);
             //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Bookings.Create", false);
             //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Slots.Update", true);
             //await _permissionManager.SetForUserAsync(CurrentUser.GetId(), "QBox.Slots.Delete", true);

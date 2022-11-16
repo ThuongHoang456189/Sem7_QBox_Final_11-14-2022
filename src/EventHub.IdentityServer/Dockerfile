@@ -1,4 +1,5 @@
   FROM mcr.microsoft.com/dotnet/aspnet:6.0.0-bullseye-slim
-  COPY bin/Release/net6.0/publish/ app/
+  COPY bin/Release/net6.0/ app/
   WORKDIR /app
+  EXPOSE 8080
   ENTRYPOINT ["dotnet", "EventHub.IdentityServer.dll"]
